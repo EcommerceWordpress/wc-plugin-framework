@@ -1216,6 +1216,17 @@ abstract class SV_WC_Payment_Gateway_Direct extends SV_WC_Payment_Gateway {
 			// add customer data, primarily customer ID to user meta
 			$this->add_add_payment_method_customer_data( $order, $response );
 
+			/**
+			 * Fires after a new payment method is added by a customer.
+			 *
+			 * @since 4.7.0-dev
+			 *
+			 * @param string $token_id new token ID
+			 * @param int $user_id user ID
+			 * @param \SV_WC_Payment_Gateway_API_Response $response API response object
+			 */
+			do_action( 'wc_payment_gateway_' . $this->get_id() . '_payment_method_added', $token->get_id(), $order->get_user_id(), $response );
+
 			$result = array( 'message' => $message, 'success' => true );
 
 		} else {
