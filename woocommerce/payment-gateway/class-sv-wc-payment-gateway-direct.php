@@ -101,7 +101,7 @@ abstract class SV_WC_Payment_Gateway_Direct extends SV_WC_Payment_Gateway {
 				}
 
 				// Check the CSC if enabled
-				if ( $this->is_credit_card_gateway() && $this->csc_enabled() ) {
+				if ( $this->is_credit_card_gateway() && $this->csc_enabled_for_tokens() ) {
 					$is_valid = $this->validate_csc( SV_WC_Helper::get_post( 'wc-' . $this->get_id_dasherized() . '-csc' ) ) && $is_valid;
 				}
 
@@ -548,7 +548,7 @@ abstract class SV_WC_Payment_Gateway_Direct extends SV_WC_Payment_Gateway {
 				$order->payment->exp_month = $token->get_exp_month();
 				$order->payment->exp_year  = $token->get_exp_year();
 
-				if ( $this->csc_enabled() ) {
+				if ( $this->csc_enabled_for_tokens() ) {
 					$order->payment->csc = SV_WC_Helper::get_post( 'wc-' . $this->get_id_dasherized() . '-csc' );
 				}
 
